@@ -16,3 +16,12 @@ D:\GDrive\GetCommission\GetCommission\GetCommission\obj\Debug\GetCommission.cspr
 D:\GDrive\GetCommission\GetCommission\GetCommission\obj\Debug\GetCommission.MainWindowForm.resources
 D:\GDrive\GetCommission\GetCommission\GetCommission\obj\Debug\GetCommission.Properties.Resources.resources
 D:\GDrive\GetCommission\GetCommission\GetCommission\obj\Debug\GetCommission.csproj.GenerateResource.Cache
+E:\C-SharpCode\GetCommission\bin\Debug\GetCommission.exe.config
+E:\C-SharpCode\GetCommission\obj\Debug\GetCommission.exe
+E:\C-SharpCode\GetCommission\obj\Debug\GetCommission.pdb
+E:\C-SharpCode\GetCommission\bin\Debug\GetCommission.exe
+E:\C-SharpCode\GetCommission\bin\Debug\GetCommission.pdb
+E:\C-SharpCode\GetCommission\obj\Debug\GetCommission.csprojResolveAssemblyReference.cache
+E:\C-SharpCode\GetCommission\obj\Debug\GetCommission.MainWindowForm.resources
+E:\C-SharpCode\GetCommission\obj\Debug\GetCommission.Properties.Resources.resources
+E:\C-SharpCode\GetCommission\obj\Debug\GetCommission.csproj.GenerateResource.Cache

@@ -36,6 +36,8 @@
             this.closeButton = new System.Windows.Forms.Label();
             this.BrCBList = new System.Windows.Forms.CheckedListBox();
             this.sideControlBar = new System.Windows.Forms.Panel();
+            this.ChannelLabel = new System.Windows.Forms.Label();
+            this.AgentChanel = new System.Windows.Forms.ComboBox();
             this.QueryStart = new System.Windows.Forms.Button();
             this.idActTextBox = new System.Windows.Forms.TextBox();
             this.idAct = new System.Windows.Forms.Label();
@@ -47,8 +49,6 @@
             this.ActStatusLabel = new System.Windows.Forms.Label();
             this.ActClosed = new System.Windows.Forms.DateTimePicker();
             this.ActPeriod = new System.Windows.Forms.DateTimePicker();
-            this.ChannelLabel = new System.Windows.Forms.Label();
-            this.AgentChanel = new System.Windows.Forms.ComboBox();
             this.Header.SuspendLayout();
             this.minimizeButtonPanel.SuspendLayout();
             this.closeButtonPanel.SuspendLayout();
@@ -192,6 +192,40 @@
             this.sideControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainWindowForm_MouseMove);
             this.sideControlBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainWindowForm_MouseUp);
             // 
+            // ChannelLabel
+            // 
+            this.ChannelLabel.AutoSize = true;
+            this.ChannelLabel.Location = new System.Drawing.Point(8, 200);
+            this.ChannelLabel.Margin = new System.Windows.Forms.Padding(8);
+            this.ChannelLabel.Name = "ChannelLabel";
+            this.ChannelLabel.Size = new System.Drawing.Size(77, 15);
+            this.ChannelLabel.TabIndex = 15;
+            this.ChannelLabel.Text = "Канал агента";
+            // 
+            // AgentChanel
+            // 
+            this.AgentChanel.FormattingEnabled = true;
+            this.AgentChanel.Items.AddRange(new object[] {
+            "11 - ФО по ТД",
+            "12 - ФО по ЦПХ",
+            "13 - інші агенти ФО",
+            "14 - ЮО - банки",
+            "15 - Агенти – ЮО банки",
+            "16 - Агенти – ЮО",
+            "17 - Агенти – ЮО",
+            "18 - СПД (Категорія 2)",
+            "19 - інші страхові агенти",
+            "21 - штатні працівники",
+            "22 - СПД (Категорія 1)",
+            "31 - Iнтернет",
+            "32 - Телемаркетинг",
+            "33 - Дистанційні канали"});
+            this.AgentChanel.Location = new System.Drawing.Point(132, 197);
+            this.AgentChanel.Margin = new System.Windows.Forms.Padding(8);
+            this.AgentChanel.Name = "AgentChanel";
+            this.AgentChanel.Size = new System.Drawing.Size(139, 23);
+            this.AgentChanel.TabIndex = 14;
+            // 
             // QueryStart
             // 
             this.QueryStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -298,47 +332,14 @@
             // 
             // ActPeriod
             // 
-            this.ActPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.ActPeriod.CustomFormat = "MM.yyyy";
+            this.ActPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.ActPeriod.Location = new System.Drawing.Point(177, 9);
             this.ActPeriod.Margin = new System.Windows.Forms.Padding(8);
             this.ActPeriod.Name = "ActPeriod";
             this.ActPeriod.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ActPeriod.Size = new System.Drawing.Size(94, 22);
             this.ActPeriod.TabIndex = 0;
-            // 
-            // ChannelLabel
-            // 
-            this.ChannelLabel.AutoSize = true;
-            this.ChannelLabel.Location = new System.Drawing.Point(8, 200);
-            this.ChannelLabel.Margin = new System.Windows.Forms.Padding(8);
-            this.ChannelLabel.Name = "ChannelLabel";
-            this.ChannelLabel.Size = new System.Drawing.Size(77, 15);
-            this.ChannelLabel.TabIndex = 15;
-            this.ChannelLabel.Text = "Канал агента";
-            // 
-            // AgentChanel
-            // 
-            this.AgentChanel.FormattingEnabled = true;
-            this.AgentChanel.Items.AddRange(new object[] {
-            "11 - ФО по ТД",
-            "12 - ФО по ЦПХ",
-            "13 - інші агенти ФО",
-            "14 - ЮО - банки",
-            "15 - Агенти – ЮО банки",
-            "16 - Агенти – ЮО",
-            "17 - Агенти – ЮО",
-            "18 - СПД (Категорія 2)",
-            "19 - інші страхові агенти",
-            "21 - штатні працівники",
-            "22 - СПД (Категорія 1)",
-            "31 - Iнтернет",
-            "32 - Телемаркетинг",
-            "33 - Дистанційні канали"});
-            this.AgentChanel.Location = new System.Drawing.Point(132, 197);
-            this.AgentChanel.Margin = new System.Windows.Forms.Padding(8);
-            this.AgentChanel.Name = "AgentChanel";
-            this.AgentChanel.Size = new System.Drawing.Size(139, 23);
-            this.AgentChanel.TabIndex = 14;
             // 
             // MainWindowForm
             // 

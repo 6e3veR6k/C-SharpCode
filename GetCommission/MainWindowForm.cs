@@ -88,23 +88,25 @@ namespace GetCommission
         {
 
             string BranchQueryPart = GetCommission.QueryBuilder.GetBranchQueryPart(BrCBList);
-            string t = AgentChanel.GetItemText(AgentChanel.SelectedItem);
-            string ChanelQueryPart = new String(t.ToCharArray(0, 2));
+            string channelId = AgentChanel.GetItemText(AgentChanel.SelectedItem);
+            string ChanelQueryPart = new String(channelId.ToCharArray(0, 2));
+
+            string CommissiontypeGuid = CommissionTypeCB.GetItemText(CommissionTypeCB.SelectedItem);
+            string ActStatusText = ActStatusCB.GetItemText(ActStatusCB.SelectedItem);
+            DateTime ActPeriodDate = new DateTime(ActPeriod.Value.Year, ActPeriod.Value.Month, 01);
 
 
-            string formatedText = String.Format("@CommissionTypeGID - '{0}'\n@Period - '{1}'\n@StartDate - '{2}'\n@EndDate - '{3}'\n@StatusGID - '{4}'\n@Chanel - '{5}'\n@BranchCode: (LEFT(B.BranchCode, 2) = '100' {6})", 
-                0,
-                1,
-                2,
-                3,
-                4,
+            string formatedText = String.Format("@CommissionTypeGID - '{0}'\n@Period - '{1}'\n@StartDate - '{2}'\n@EndDate - '{3}'\n@StatusGID - '{4}'\n@Chanel - '{5}'\n@BranchCode: (LEFT(B.BranchCode, 2) = '100' {6})",
+                QueryBuilder.GetCommissionTypeGuid(CommissiontypeGuid),
+                ActPeriodDate.ToString("dd.MM.yyyy"),
+                ActClosed.Value.ToString("dd.MM.yyyy 00:00"),
+                DateTime.Now.ToString("dd.MM.yyyy H:mm"),
+                QueryBuilder.GetActStatusGuid(ActStatusText),
                 ChanelQueryPart,
                 BranchQueryPart
                 );
             MessageBox.Show(formatedText);
         }
-
-
         //
         //
         //
