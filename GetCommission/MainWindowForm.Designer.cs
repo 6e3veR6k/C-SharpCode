@@ -195,7 +195,7 @@
             // ChannelLabel
             // 
             this.ChannelLabel.AutoSize = true;
-            this.ChannelLabel.Location = new System.Drawing.Point(8, 200);
+            this.ChannelLabel.Location = new System.Drawing.Point(8, 166);
             this.ChannelLabel.Margin = new System.Windows.Forms.Padding(8);
             this.ChannelLabel.Name = "ChannelLabel";
             this.ChannelLabel.Size = new System.Drawing.Size(77, 15);
@@ -220,7 +220,7 @@
             "31 - Iнтернет",
             "32 - Телемаркетинг",
             "33 - Дистанційні канали"});
-            this.AgentChanel.Location = new System.Drawing.Point(132, 197);
+            this.AgentChanel.Location = new System.Drawing.Point(132, 163);
             this.AgentChanel.Margin = new System.Windows.Forms.Padding(8);
             this.AgentChanel.Name = "AgentChanel";
             this.AgentChanel.Size = new System.Drawing.Size(139, 23);
@@ -239,7 +239,7 @@
             // 
             // idActTextBox
             // 
-            this.idActTextBox.Location = new System.Drawing.Point(132, 164);
+            this.idActTextBox.Location = new System.Drawing.Point(11, 310);
             this.idActTextBox.Name = "idActTextBox";
             this.idActTextBox.Size = new System.Drawing.Size(139, 22);
             this.idActTextBox.TabIndex = 10;
@@ -247,7 +247,7 @@
             // idAct
             // 
             this.idAct.AutoSize = true;
-            this.idAct.Location = new System.Drawing.Point(9, 166);
+            this.idAct.Location = new System.Drawing.Point(8, 284);
             this.idAct.Margin = new System.Windows.Forms.Padding(8);
             this.idAct.Name = "idAct";
             this.idAct.Size = new System.Drawing.Size(69, 15);
@@ -377,21 +377,21 @@
         private System.Windows.Forms.Label closeButton;
         private System.Windows.Forms.Panel minimizeButtonPanel;
         private System.Windows.Forms.Label minimizeButton;
-        private System.Windows.Forms.CheckedListBox BrCBList;
+        public System.Windows.Forms.CheckedListBox BrCBList;
         private System.Windows.Forms.Panel sideControlBar;
         private System.Windows.Forms.Label ActClosedLabel;
         private System.Windows.Forms.Label ActStatusLabel;
-        private System.Windows.Forms.DateTimePicker ActClosed;
-        private System.Windows.Forms.DateTimePicker ActPeriod;
-        private System.Windows.Forms.ComboBox CommissionTypeCB;
+        public System.Windows.Forms.DateTimePicker ActClosed;
+        public System.Windows.Forms.DateTimePicker ActPeriod;
+        public System.Windows.Forms.ComboBox CommissionTypeCB;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox ActStatusCB;
+        public System.Windows.Forms.ComboBox ActStatusCB;
         private System.Windows.Forms.Label CommissionType;
-        private System.Windows.Forms.TextBox idActTextBox;
+        public System.Windows.Forms.TextBox idActTextBox;
         private System.Windows.Forms.Label idAct;
         private System.Windows.Forms.Button QueryStart;
         private System.Windows.Forms.Label ChannelLabel;
-        private System.Windows.Forms.ComboBox AgentChanel;
+        public System.Windows.Forms.ComboBox AgentChanel;
     }
 }
 

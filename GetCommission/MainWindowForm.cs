@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
+
 
 namespace GetCommission
 {
@@ -84,29 +87,65 @@ namespace GetCommission
         //
         // Create fromated string for query
         //
+
         private void QueryStart_Click(object sender, EventArgs e)
         {
+            if (CommissionTypeCB.SelectedIndex == -1)
+            {
+                MessageBox.Show("Не вибрано тип комісійної винагороди!");
+            }
+            else if (ActStatusCB.SelectedIndex == -1)
+            {
+                MessageBox.Show("Не вибрано статус актів!");
+            }
+            else if (AgentChanel.SelectedIndex == -1)
+            {
+                MessageBox.Show("Не вибрано канал агента!");
+            }
+            else if (BrCBList.SelectedIndex == -1)
+            {
+                MessageBox.Show("Не вибрано відділення!");
+            }
+            else if (ActClosed.Value.Date > DateTime.Now || ActPeriod.Value.Date > ActClosed.Value.Date)
+            {
+                MessageBox.Show("Не вірна дата!");
+            }
+            else
+            {
+                QueryString text = new QueryString(BrCBList, CommissionTypeCB, ActStatusCB, ActPeriod, ActClosed, AgentChanel);
+                SqlConnection conn = new SqlConnection("server=hq01db05;database=Callisto;Trusted_Connection=yes;Integrated Security=true");
+                SqlCommand cmd = new SqlCommand(text.GetQueryString().ToString(), conn);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                string CommissionOut = "";
+                while (reader.Read())
+                {
+                    string newRaw = reader[0].ToString()
+                        + '\t' + reader[1].ToString()
+                        + '\t' + reader[2].ToString()
+                        + '\t' + reader[3].ToString()
+                        + '\t' + reader[4].ToString()
+                        + '\t' + reader[5].ToString()
+                        + '\t' + reader[6].ToString()
+                        + '\t' + reader[7].ToString()
+                        + '\t' + reader[8].ToString();
+                    
+                    CommissionOut += (newRaw + '\n');
+                }
+                string path = @"d:\Documents\fromGit\C-SharpCode\result.txt";
+                if (!System.IO.File.Exists(path))
+                {
+                    using (System.IO.StreamWriter sw = System.IO.File.CreateText(path))
+                    {
+                        sw.Write(CommissionOut);
+                    }
+                }
+                MessageBox.Show(CommissionOut);
+            }
 
-            string BranchQueryPart = GetCommission.QueryBuilder.GetBranchQueryPart(BrCBList);
-            string channelId = AgentChanel.GetItemText(AgentChanel.SelectedItem);
-            string ChanelQueryPart = new String(channelId.ToCharArray(0, 2));
 
-            string CommissiontypeGuid = CommissionTypeCB.GetItemText(CommissionTypeCB.SelectedItem);
-            string ActStatusText = ActStatusCB.GetItemText(ActStatusCB.SelectedItem);
-            DateTime ActPeriodDate = new DateTime(ActPeriod.Value.Year, ActPeriod.Value.Month, 01);
-
-
-            string formatedText = String.Format("@CommissionTypeGID - '{0}'\n@Period - '{1}'\n@StartDate - '{2}'\n@EndDate - '{3}'\n@StatusGID - '{4}'\n@Chanel - '{5}'\n@BranchCode: (LEFT(B.BranchCode, 2) = '100' {6})",
-                QueryBuilder.GetCommissionTypeGuid(CommissiontypeGuid),
-                ActPeriodDate.ToString("dd.MM.yyyy"),
-                ActClosed.Value.ToString("dd.MM.yyyy 00:00"),
-                DateTime.Now.ToString("dd.MM.yyyy H:mm"),
-                QueryBuilder.GetActStatusGuid(ActStatusText),
-                ChanelQueryPart,
-                BranchQueryPart
-                );
-            MessageBox.Show(formatedText);
         }
+
         //
         //
         //
