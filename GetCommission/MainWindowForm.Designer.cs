@@ -39,8 +39,6 @@
             this.ChannelLabel = new System.Windows.Forms.Label();
             this.AgentChanel = new System.Windows.Forms.ComboBox();
             this.QueryStart = new System.Windows.Forms.Button();
-            this.idActTextBox = new System.Windows.Forms.TextBox();
-            this.idAct = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ActStatusCB = new System.Windows.Forms.ComboBox();
             this.CommissionType = new System.Windows.Forms.Label();
@@ -173,8 +171,6 @@
             this.sideControlBar.Controls.Add(this.ChannelLabel);
             this.sideControlBar.Controls.Add(this.AgentChanel);
             this.sideControlBar.Controls.Add(this.QueryStart);
-            this.sideControlBar.Controls.Add(this.idActTextBox);
-            this.sideControlBar.Controls.Add(this.idAct);
             this.sideControlBar.Controls.Add(this.label1);
             this.sideControlBar.Controls.Add(this.ActStatusCB);
             this.sideControlBar.Controls.Add(this.CommissionType);
@@ -188,9 +184,6 @@
             this.sideControlBar.Name = "sideControlBar";
             this.sideControlBar.Size = new System.Drawing.Size(282, 547);
             this.sideControlBar.TabIndex = 2;
-            this.sideControlBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainWindowForm_MouseDown);
-            this.sideControlBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainWindowForm_MouseMove);
-            this.sideControlBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainWindowForm_MouseUp);
             // 
             // ChannelLabel
             // 
@@ -236,23 +229,6 @@
             this.QueryStart.Text = "Вивантажити";
             this.QueryStart.UseVisualStyleBackColor = true;
             this.QueryStart.Click += new System.EventHandler(this.QueryStart_Click);
-            // 
-            // idActTextBox
-            // 
-            this.idActTextBox.Location = new System.Drawing.Point(11, 310);
-            this.idActTextBox.Name = "idActTextBox";
-            this.idActTextBox.Size = new System.Drawing.Size(139, 22);
-            this.idActTextBox.TabIndex = 10;
-            // 
-            // idAct
-            // 
-            this.idAct.AutoSize = true;
-            this.idAct.Location = new System.Drawing.Point(8, 284);
-            this.idAct.Margin = new System.Windows.Forms.Padding(8);
-            this.idAct.Name = "idAct";
-            this.idAct.Size = new System.Drawing.Size(69, 15);
-            this.idAct.TabIndex = 9;
-            this.idAct.Text = "Номер акту";
             // 
             // label1
             // 
@@ -387,8 +363,6 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ComboBox ActStatusCB;
         private System.Windows.Forms.Label CommissionType;
-        public System.Windows.Forms.TextBox idActTextBox;
-        private System.Windows.Forms.Label idAct;
         private System.Windows.Forms.Button QueryStart;
         private System.Windows.Forms.Label ChannelLabel;
         public System.Windows.Forms.ComboBox AgentChanel;

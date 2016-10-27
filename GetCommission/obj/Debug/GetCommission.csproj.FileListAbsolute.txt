@@ -1,1 +1,10 @@
 d:\Documents\fromGit\C-SharpCode\GetCommission\bin\Debug\GetCommission.exe.config
+D:\Documents\fromGit\C-SharpCode\GetCommission\bin\Debug\GetCommission.exe
+D:\Documents\fromGit\C-SharpCode\GetCommission\bin\Debug\GetCommission.pdb
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.MainWindowForm.resources
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.Properties.Resources.resources
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.csproj.GenerateResource.Cache
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.exe
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.pdb
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.csprojResolveAssemblyReference.cache
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.ResultFormTable.resources

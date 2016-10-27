@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,14 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data;
 using System.Data.SqlClient;
+using System.Collections;
+
 
 
 namespace GetCommission
 {
     public partial class MainWindowForm : Form
     {
+
+
+
+        public static DataSet ResultsTable = new DataSet();
+        public static string FileName = "";
+        public static string ActMonth = "";
+        public static int count = 0;
+
+
+
+
         public MainWindowForm()
         {
             InitializeComponent();
@@ -106,49 +119,144 @@ namespace GetCommission
             {
                 MessageBox.Show("Не вибрано відділення!");
             }
-            else if (ActClosed.Value.Date > DateTime.Now || ActPeriod.Value.Date > ActClosed.Value.Date)
+            else if (ActClosed.Value.Date > DateTime.Now || ActPeriod.Value.Month > ActClosed.Value.Month)
             {
                 MessageBox.Show("Не вірна дата!");
             }
             else
             {
-                QueryString text = new QueryString(BrCBList, CommissionTypeCB, ActStatusCB, ActPeriod, ActClosed, AgentChanel);
-                SqlConnection conn = new SqlConnection("server=hq01db05;database=Callisto;Trusted_Connection=yes;Integrated Security=true");
-                SqlCommand cmd = new SqlCommand(text.GetQueryString().ToString(), conn);
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                string CommissionOut = "";
-                while (reader.Read())
+                count++;
+                ActMonth = "";
+                FileName = "";
+                ResultsTable.Clear();
+                SqlDataAdapter SQLAdapter = new SqlDataAdapter();
+
+                if (ActClosed.Value.Date == DateTime.Now.Date)
                 {
-                    string newRaw = reader[0].ToString()
-                        + '\t' + reader[1].ToString()
-                        + '\t' + reader[2].ToString()
-                        + '\t' + reader[3].ToString()
-                        + '\t' + reader[4].ToString()
-                        + '\t' + reader[5].ToString()
-                        + '\t' + reader[6].ToString()
-                        + '\t' + reader[7].ToString()
-                        + '\t' + reader[8].ToString();
-                    
-                    CommissionOut += (newRaw + '\n');
+                    QueryString text = new QueryString(BrCBList, CommissionTypeCB, ActStatusCB, ActPeriod, ActClosed, AgentChanel);
+                    SqlConnection conn = new SqlConnection("server=hq01sdb3;database=Callisto;Trusted_Connection=yes;Integrated Security=true");
+                    SQLAdapter = new SqlDataAdapter(text.GetQueryStringToday().ToString(), conn);
+
                 }
-                string path = @"d:\Documents\fromGit\C-SharpCode\result.txt";
-                if (!System.IO.File.Exists(path))
+                else
                 {
-                    using (System.IO.StreamWriter sw = System.IO.File.CreateText(path))
-                    {
-                        sw.Write(CommissionOut);
-                    }
+                    QueryString text = new QueryString(BrCBList, CommissionTypeCB, ActStatusCB, ActPeriod, ActClosed, AgentChanel);
+                    SqlConnection conn = new SqlConnection("server=hq01db05;database=Callisto;Trusted_Connection=yes;Integrated Security=true");
+                    SQLAdapter = new SqlDataAdapter(text.GetQueryString().ToString(), conn);
                 }
-                MessageBox.Show(CommissionOut);
+                //SqlCommandBuilder QueryBuilder = new SqlCommandBuilder(SQLAdapter);
+
+                ResultFormTable Result = new ResultFormTable();
+                SQLAdapter.Fill(ResultsTable, "AgentsCommission");
+
+                DataTable resultTable = ResultsTable.Tables["AgentsCommission"];
+
+                var query =
+                        from Agentline in resultTable.AsEnumerable()
+                        group Agentline by Agentline.Field<Int32>(resultTable.Columns[8].ColumnName) into g
+
+                        select new
+                        {
+                            Id = g.Key,
+                            Av = g.Sum(row => row.Field<decimal>(resultTable.Columns[4].ColumnName)),
+                            AgentName = g.Max(row => row.Field<string>(resultTable.Columns[1].ColumnName)),
+                            AgentINN = g.Max(row => row.Field<string>(resultTable.Columns[0].ColumnName)),
+                            DogType = g.Max(row => row.Field<string>(resultTable.Columns[7].ColumnName)),
+                            DirCode = g.Max(row => row.Field<string>(resultTable.Columns[5].ColumnName))
+                        };
+
+                DataTable resultAvTable = new DataTable();
+
+                resultAvTable.Columns.Add("Дирекція", typeof(string));
+                resultAvTable.Columns.Add("Номер акту", typeof(string));
+                resultAvTable.Columns.Add("Агент", typeof(string));
+                resultAvTable.Columns.Add("ІПН", typeof(string));
+                resultAvTable.Columns.Add("Тип договору", typeof(string));
+                resultAvTable.Columns.Add("Сума винагороди по акту", typeof(decimal));
+
+                string ChannelPartString = "";
+                string channelId = this.AgentChanel.GetItemText(this.AgentChanel.SelectedItem);
+                string ChanelQueryPart = new String(channelId.ToCharArray(0, 2));
+                if (ChanelQueryPart == "18" || ChanelQueryPart == "22")
+                {
+                    ChannelPartString = "СПД_";
+                }
+                else
+                {
+                    ChannelPartString = ChanelQueryPart;
+                }
+                List<string> BranchList = new List<string>();
+
+                foreach (var row in query)
+                {
+                    DataRow workRow = resultAvTable.NewRow();
+                    workRow["Дирекція"] = row.DirCode.Substring(0, 2);
+                    workRow["Номер акту"] = row.Id;
+                    workRow["Сума винагороди по акту"] = row.Av;
+                    workRow["Агент"] = row.AgentName;
+                    workRow["ІПН"] = row.AgentINN;
+                    workRow["Тип договору"] = row.DogType;
+                    resultAvTable.Rows.Add(workRow);
+
+                    string AgentFullName = row.AgentName;
+                    FileName += (AgentFullName.Split(' ')[0] + '_');
+                    BranchList.Add(row.DirCode.Substring(0, 2));
+                }
+                List<String> uniqueCodes = BranchList.GroupBy(x => x).Where(g => g.Count() >= 1).Select(g => g.Key).ToList();
+                if (FileName.Length >= 150)
+                {
+                    FileName = String.Format("part{0:00}_", count);
+                }
+                if (QueryString.GetCommissionTypeGuid(CommissionTypeCB.GetItemText(CommissionTypeCB.SelectedItem)) == "BEDED8D6-159C-4DEC-869C-25416FCAD1FF")
+                {
+                    FileName += (ChannelPartString + "ІКП_" + string.Join("_", uniqueCodes));
+                }
+                else
+                {
+                    FileName += (ChannelPartString + string.Join("_", uniqueCodes));
+                }
+                if (ActPeriod.Value.Month == DateTime.Now.Month)
+                {
+                    FileName += "дир_дострокова";
+                }
+                else
+                {
+                    FileName += "дир";
+                }
+                
+                Result.SummInfo.DataSource = resultAvTable;
+                ActMonth = ActPeriod.Value.Month.ToString();
+                Result.Show();
+            }
+        }
+
+        public static void ResultsFileSave()
+        {
+            string path = Directory.GetCurrentDirectory();
+            path += String.Format(@"\{0:00}", Int32.Parse(ActMonth));
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                throw;
             }
 
 
+            path += ("\\" + FileName.ToString() + ".txt");
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (DataRow item in ResultsTable.Tables[0].Rows)
+                {
+                    sw.WriteLine(String.Join("\t", item.ItemArray));
+                }
+            }
+            MessageBox.Show(FileName.ToString());
         }
-
-        //
-        //
-        //
-
     }
 }
