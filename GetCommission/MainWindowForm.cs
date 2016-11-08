@@ -213,7 +213,10 @@ namespace GetCommission
                 }
                 else
                 {
-                    FileName += (ChannelPartString + string.Join("_", uniqueCodes));
+                    if (ChanelQueryPart == "18" || ChanelQueryPart == "22")
+                    { FileName += (ChannelPartString + string.Join("_", uniqueCodes)); }
+                    else
+                    { FileName += (ChannelPartString + "к" + "_" + string.Join("_", uniqueCodes)); }
                 }
                 if (ActPeriod.Value.Month == DateTime.Now.Month)
                 {
@@ -223,7 +226,7 @@ namespace GetCommission
                 {
                     FileName += "дир";
                 }
-                
+                FileName += DateTime.Now.Date.ToString(@"_(dd.MM.yyyy)");
                 Result.SummInfo.DataSource = resultAvTable;
                 ActMonth = ActPeriod.Value.Month.ToString();
                 Result.Show();

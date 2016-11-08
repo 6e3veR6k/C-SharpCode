@@ -8,3 +8,7 @@ D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.exe
 D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.pdb
 D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.csprojResolveAssemblyReference.cache
 D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.ResultFormTable.resources
+D:\Documents\fromGit\C-SharpCode\GetCommission\bin\Debug\GetCommission.exe.manifest
+D:\Documents\fromGit\C-SharpCode\GetCommission\bin\Debug\GetCommission.application
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.exe.manifest
+D:\Documents\fromGit\C-SharpCode\GetCommission\obj\Debug\GetCommission.application
